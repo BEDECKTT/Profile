@@ -4,11 +4,14 @@ import TechCard from "../Components/TechCard.astro"
 import ProjectCards from "../Components/ProjectCards.astro";
 
 
+
 import { getCollection } from "astro:content";
 
 interface TechItem {
 	title: string;
 	tech: string[];
+    
+    
 }
 
 interface ProjectItem{
@@ -60,15 +63,23 @@ const techItems: TechItem[] = [
             
             
 
-            <h1 class="text-4xl font-bold text-gray-800 mb-4">Sobre Mí</h1>
-            <p class="text-gray-900 mb-4">
-                Soy un desarrollador web apasionado por crear soluciones innovadoras y eficientes. 
-                Me encanta aprender nuevas tecnologías y enfrentar desafíos que me permitan crecer profesionalmente.
+            <h1 class="text-4xl font-bold text-gray-950 mb-4">Sobre Mí</h1>
+            <p class="text-gray-950 mb-4">
+                Soy un pasante universitario en Ingeniería en Sistemas con
+                experiencia en C#. He trabajado en la creación de APIs, utilizando
+                Swagger para documentar y probar los servicios que desarrollo.
+                Además, tengo habilidades en la administración de bases de
+                datos con SQL Server Management, lo que me permite diseñar,
+                consultar y mantener bases de datos de manera eficiente. Estas
+                competencias me han permitido contribuir de manera efectiva
+                en proyectos de desarrollo de software, especialmente en lo que
+                respecta a la programación orientada a objetos y la gestión de
+                datos.
             </p>
         </section>
 
         <section id="technologies" class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">Mis Habilidades</h2>
+            <h2 class="text-3xl font-bold text-gray-950 mb-4">Mis Habilidades</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
 
 				{ techItems.map( ( item ) => (
@@ -79,7 +90,7 @@ const techItems: TechItem[] = [
         </section>
 
         <section id="projects">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">Proyectos Trabajados</h2>
+            <h2 class="text-3xl font-bold text-gray-950 mb-4">Proyectos Trabajados</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
 
