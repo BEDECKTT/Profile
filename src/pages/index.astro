@@ -21,26 +21,31 @@ interface ProjectItem{
     }
 }
 
-const projects: ProjectItem[] = await getCollection("Proyects");
+const projects: ProjectItem[] = await getCollection("projects")
 
 
 const techItems: TechItem[] = [
-	{
-		title: "IA",
-		tech: ["Dataflows", "ML Supervisado", "ML No Supervisado", "IA Generative"]
-	},
+	
 	{
 		title: "Desarrollo Web",
-		tech: ["HTML", "CSS", "JavaScript", "DexExtreme"]
+		tech: ["HTML", "CSS", "JavaScript", "DexExtreme", "Astro"]
+	},
+    {
+		title: "Herramientas de Desarrollo",
+		tech: ["GitHub",  "VS Code", "Visual Studio", "Git"]
+	},
+    {
+		title: "Lenguajes",
+		tech: ["C#", "Java", "C++"]
 	},
 	{
 		title: "Bases de Datos",
-		tech: ["MySQL Workbench"]
+		tech: ["MySQL Workbench", "MySQL"]
 	},
-	{
-		title: "Herramientas",
-		tech: ["GitHub",  "VS Code", "Visual Studio"]
-	}
+    {
+        title: "Frameworks",
+        tech: ["ORM(Entity Framework)", "Swagger(Documentar Apis)"]
+    }
 ]
 
 
@@ -84,10 +89,10 @@ const techItems: TechItem[] = [
                         <ProjectCards 
                         title={p.data.title}
                         description={p.data.ShortDescription}
-                        link="#"
+                        link={`/projects/${ p.slug }`}
                         />
                     )
-                )}
+                )}  
               
                 
             </div>

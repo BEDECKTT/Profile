@@ -1,0 +1,82 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import Layouts from "../../Layouts/Layouts.astro";
+
+export async function  getStaticPaths(){
+    
+    const projects = await getCollection("projects");
+    return projects.map
+    ( 
+        p => 
+        ( 
+            { 
+                params: { slug: p.slug } , props: { p } 
+            } 
+        )
+    )
+}
+
+interface Prop {
+    p: {
+        slug: string;
+        data: {
+            title: string;
+            shortDescription: string;
+        };
+        render: () => Promise< { Content: any; heading: any[] } >;
+    }
+}
+
+const { p } = Astro.props;
+const { Content, headings} = await p.render();
+
+---
+
+<Layouts title = { p.data.title }>
+
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-black mb-4">{p.data.title}</h1>
+        <p class="text-xl text-gray-900 mb-8">{p.data.description}</p>
+
+        <nav class="toc mb-8 bg-black p-4 rounded-lg">
+          <h2 class="text-2xl font-semibold mb-4 text-[#024859]">Table of Contents</h2>
+          <ul class="space-y-2">
+            {headings.map((heading) => (
+              <li class={`toc-level-${heading.depth} ml-${(heading.depth - 1) * 4}`}>
+                <a href={`#${heading.slug}`} class="text-[#024859] hover:text-[#024859] transition-colors">
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <article class="prose prose-orange lg:prose-lg max-w-none">
+          <Content />
+        </article>
+      </div>
+
+</Layouts>
+
+<style is:global>
+    .prose h1 { @apply text-3xl font-bold text-black mb-4 mt-8; }
+    .prose h2 { @apply text-2xl font-semibold text-[#024859] mb-4 mt-8; }
+    .prose h3 { @apply text-xl font-semibold text-[#024859] mb-3 mt-6; }
+    .prose p { @apply mb-4 text-gray-800; }
+    .prose ul { @apply list-disc list-inside mb-4; }
+    .prose ol { @apply list-decimal list-inside mb-4; }
+    .prose li { @apply mb-2; }
+    .prose strong { @apply text-[#024859]; }
+    .prose a { @apply text-[#024859] hover:text-[#024859] underline; }
+    .prose code { @apply bg-[#024859] text-[#024859] px-1 py-0.5 rounded; }
+    .prose pre { @apply bg-gray-100 p-4 rounded-lg overflow-x-auto; }
+    .prose pre code { @apply bg-transparent text-gray-800; }
+    .prose blockquote { @apply border-l-4 border-[#024859] pl-4 italic text-gray-700; }
+    .prose table { @apply w-full border-collapse border border-[#024859] mb-4; }
+    .prose th, .prose td { @apply border border-[#024859] p-2; }
+    .prose th { @apply bg-[#024859] font-semibold; }
+  </style>  
+
+
+
