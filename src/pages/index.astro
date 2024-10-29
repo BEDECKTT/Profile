@@ -1,0 +1,97 @@
+---
+import Layout from "../Layouts/Layouts.astro"
+import TechCard from "../Components/TechCard.astro"
+import ProjectCards from "../Components/ProjectCards.astro";
+
+
+import { getCollection } from "astro:content";
+
+interface TechItem {
+	title: string;
+	tech: string[];
+}
+
+interface ProjectItem{
+    slug: string;
+    data:
+    {
+        title: string;
+        ShortDescription: string;
+        
+    }
+}
+
+const projects: ProjectItem[] = await getCollection("Proyects");
+
+
+const techItems: TechItem[] = [
+	{
+		title: "IA",
+		tech: ["Dataflows", "ML Supervisado", "ML No Supervisado", "IA Generative"]
+	},
+	{
+		title: "Desarrollo Web",
+		tech: ["HTML", "CSS", "JavaScript", "DexExtreme"]
+	},
+	{
+		title: "Bases de Datos",
+		tech: ["MySQL Workbench"]
+	},
+	{
+		title: "Herramientas",
+		tech: ["GitHub",  "VS Code", "Visual Studio"]
+	}
+]
+
+
+    
+---
+<Layout title="Profile">
+        <section id="about" class="mb-16">
+            <h1 class="text-5xl font-bold bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 
+            bg-[length:400%_100%] animation-wave p-4 text-transparent bg-clip-text">
+            
+            </h1>
+            
+            
+
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Sobre Mí</h1>
+            <p class="text-gray-900 mb-4">
+                Soy un desarrollador web apasionado por crear soluciones innovadoras y eficientes. 
+                Me encanta aprender nuevas tecnologías y enfrentar desafíos que me permitan crecer profesionalmente.
+            </p>
+        </section>
+
+        <section id="technologies" class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Mis Habilidades</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+				{ techItems.map( ( item ) => (
+					<TechCard title={item.title} tech={ item.tech } />
+				) ) }
+
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Proyectos Trabajados</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+
+                { projects.map
+                ( (p) => 
+                    ( 
+                        <ProjectCards 
+                        title={p.data.title}
+                        description={p.data.ShortDescription}
+                        link="#"
+                        />
+                    )
+                )}
+              
+                
+            </div>
+        </section>
+    </main>
+</Layout>
+
